@@ -2,6 +2,7 @@ package com.damnjan.restapitest;
 
 import com.damnjan.restapitest.controllers.UserController;
 import com.damnjan.restapitest.entity.User;
+import com.damnjan.restapitest.repository.UserRepository;
 import com.damnjan.restapitest.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
@@ -18,17 +19,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(UserController.class)
 public class UserControllerTest {
 
-//    @Autowired
-    private final UserController userController;
-
+    @Autowired
+    UserController userController;
     @Autowired
     private MockMvc mockMvc;
-
+    @MockBean
+    UserRepository userRepository;
     @MockBean
     private UserService userService;
 
     public UserControllerTest(UserController userController) {
-        this.userController = userController;cd Link_
+        this.userController = userController;
     }
 
     @Test
@@ -37,18 +38,22 @@ public class UserControllerTest {
 
         User user = new User();
         user.setName("John");
-        user.setEmail("john@email.com");
-        user.setPhoneNumber("9778948856");
-        user.setGender("Male");
+        user.setSalary("puno");
+        user.setTeamName("ime tima");
+//        user.setEmail("john@email.com");
+//        user.setPhoneNumber("9778948856");
+//        user.setGender("Male");
 
         when(userService.getUserbyID(ArgumentMatchers.anyInt())).thenReturn(user);
         //create a mock HTTP request to verify the expected result
         System.out.println("nesto");
         mockMvc.perform(MockMvcRequestBuilders.get("/user/12"))
-                .andExpect(MockMvcResultMatchers.jsonPath("name").value("John"))
-                .andExpect(MockMvcResultMatchers.jsonPath("email").value("john@email.com"))
-                .andExpect(MockMvcResultMatchers.jsonPath("gender").value("Male"))
-                .andExpect(MockMvcResultMatchers.jsonPath("phoneNumber").value("9778948856"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$name").value("John"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$salary").value("puno"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$teamName").value("ime tima"))
+//                .andExpect(MockMvcResultMatchers.jsonPath("email").value("john@email.com"))
+//                .andExpect(MockMvcResultMatchers.jsonPath("gender").value("Male"))
+//                .andExpect(MockMvcResultMatchers.jsonPath("phoneNumber").value("9778948856"))
                 .andExpect(status().isOk());
 
 

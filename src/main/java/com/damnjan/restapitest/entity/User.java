@@ -1,24 +1,22 @@
 package com.damnjan.restapitest.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+
+
+import javax.persistence.*;
 
 @Entity
+@Table(name = "user")
 public class User {
 
     @Id
-    @GeneratedValue( strategy = GenerationType.IDENTITY)
+//    @GeneratedValue( strategy = GenerationType.IDENTITY)
     private Integer id;
-
     private String name;
+    private String salary;
+    private String teamName;
 
-    private String email;
-
-    private String gender;
-
-    private String phoneNumber;
+    public User() {
+    }
 
     public Integer getId() {
         return id;
@@ -36,27 +34,19 @@ public class User {
         this.name = name;
     }
 
-    public String getEmail() {
-        return email;
+    public String getSalary() {
+        return salary;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setSalary(String salary) {
+        this.salary = salary;
     }
 
-    public String getGender() {
-        return gender;
+    public String getTeamName() {
+        return teamName;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setTeamName(String teamName) {
+        this.teamName = teamName;
     }
 }
